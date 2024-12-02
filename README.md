@@ -32,28 +32,28 @@ Once that's done, we'll log into DC-1.
 </p>
 <br />
 <p>
-<img src="https://github.com/user-attachments/assets/c769dda7-160a-463f-a999-10ec6e3a52e3" height="80%" width="80%" alt="server manager in DC-1"/>
+<img src="https://github.com/user-attachments/assets/ef543e6d-bb7b-4d64-a738-8154d99c527d" height="80%" width="80%" alt="server manager in DC-1"/>
 </p>
 <p>
 The Server manager should automatically load up if not click on Start and you should see the Server Manager icon. Click on Add roles and features and accept the defaults until Select Server Roles. We'll select Active Directory Domain Services.
 </p>
 <br />
 <p>
-<img src="https://github.com/user-attachments/assets/850f1f4f-e318-464c-9950-f0f40d7aaa9c" height="80%" width="80%" alt="installing AD"/>
+<img src="https://github.com/user-attachments/assets/4ffa26fb-7ae8-49d9-842f-992d1a0f7f25" height="80%" width="80%" alt="installing AD"/>
 </p>
 <p>
 Continue with this and check Restart the destination server automatically if required before clicking Install. After installation is complete, go back to the Server manager and click on the flagged icon in the top right. Then, click on the link that says to Promote this server to a domain controller. 
 </p>
 <br />
 <p>
-<img src="https://github.com/user-attachments/assets/1ee98876-3593-4ec9-b4bf-1e20b455b15c" height="80%" width="80%" alt="promote to domain controller"/>
+<img src="https://github.com/user-attachments/assets/39f7e7a9-02cc-472e-b830-ba39f105bd64" height="80%" width="80%" alt="promote to domain controller"/>
 </p>
 <p>
 In the deployment configuration, click on Add a new forest and input mydomain.com. In reality, you can name this domain anything you like.
 </p>
 <br />
 <p>
-<img src="https://github.com/user-attachments/assets/d17d8b12-80cd-43b4-bd0a-76bdd292ca00" height="80%" width="80%" alt="add new forest mydomain"/>
+<img src="https://github.com/user-attachments/assets/3b52a9aa-44cc-4042-b7bf-e3742dccfbb0" height="80%" width="80%" alt="add new forest mydomain"/>
 </p>
 <p>
 Click next and where it says to put in Directory services restore mode password, you can put in anything you like as it is unlikely we will use it. Continue with the configuration and you will be automatically signed out of the machine as Active Directory completes installation.
@@ -64,7 +64,7 @@ Once that's confirmed, we jump back log back into the DC-1 machine. The next ste
 </p>
 <br />
 <p>
-<img src="https://github.com/user-attachments/assets/27d9f0b0-265c-4a1d-aff2-1fc6183e1664" height="80%" width="80%" alt="create OU for domain"/>
+<img src="https://github.com/user-attachments/assets/faf44d3e-095c-46aa-8990-f9d396e694e4" height="80%" width="80%" alt="create OU for domain"/>
 </p>
 <p>
 We can name the new OU _EMPLOYEES and we can create another one called _ADMINS. Then we'll create an admin user. Right click on _ADMINS -> New -> User. We'll name this admin user Jane Doe, with as username of jane_admin. Set whatever password that you wish. 
