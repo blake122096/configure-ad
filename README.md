@@ -26,16 +26,14 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <h2>Deployment and Configuration Steps</h2>
 
 <p>
-Before deploying Active Directory, we'll need to install 2 VMs on Azure, one will be a Windows Server for the domain controller and one will be Windows Pro machine as a client. We can name the server machine DC-1 and the client machine Client-1. We also need to make sure that both of these machines are on the same virtual network.
-  
-Once that's done, we'll log into DC-1.
+Deploy two VMs in Azure within the same virtual network: a Windows Server (DC-1) for the domain controller and a Windows Pro (Client-1) for the client. Once deployed, log in to DC-1.
 </p>
 <br />
 <p>
 <img src="https://github.com/user-attachments/assets/ef543e6d-bb7b-4d64-a738-8154d99c527d" height="80%" width="80%" alt="server manager in DC-1"/>
 </p>
 <p>
-The Server manager should automatically load up if not click on Start and you should see the Server Manager icon. Click on Add roles and features and accept the defaults until Select Server Roles. We'll select Active Directory Domain Services.
+Open Server Manager (it usually loads automatically, or you can find it in the Start menu). Click "Add roles and features," accept the defaults, and select "Active Directory Domain Services" in the "Select Server Roles" section.
 </p>
 <br />
 <p>
@@ -49,34 +47,41 @@ Continue with this and check Restart the destination server automatically if req
 <img src="https://github.com/user-attachments/assets/39f7e7a9-02cc-472e-b830-ba39f105bd64" height="80%" width="80%" alt="promote to domain controller"/>
 </p>
 <p>
-In the deployment configuration, click on Add a new forest and input mydomain.com. In reality, you can name this domain anything you like.
+In the deployment configuration, choose "Add a new forest" and enter a domain name (e.g., "mydomain.com"). You can choose any valid domain name.
 </p>
 <br />
 <p>
 <img src="https://github.com/user-attachments/assets/3b52a9aa-44cc-4042-b7bf-e3742dccfbb0" height="80%" width="80%" alt="add new forest mydomain"/>
 </p>
 <p>
-Click next and where it says to put in Directory services restore mode password, you can put in anything you like as it is unlikely we will use it. Continue with the configuration and you will be automatically signed out of the machine as Active Directory completes installation.
+    Continue the Active Directory configuration:
 
-Now, we'll try to log into our Client-1 machine. If you try to login with your usual credentials, it will fail since no domain is specified as we just set up DC-1 as the domain controller. So to log into the machine, we need specify the domain like so: mydomain.com\\(your username), and then enter the password. 
+You'll be prompted to set a Directory Services Restore Mode password. This password is rarely used, so any password will suffice.
+Proceed with the remaining configuration steps. The server will restart to complete the Active Directory installation, and you'll be logged out.
 
-Once that's confirmed, we jump back log back into the DC-1 machine. The next step is to create a Domain admin user within the domain. The person will be able to administer the entire domain of users and is quite an important task. So we can click on Start -> Windows Administrative Tools -> Active Directory Users and Computers. Now right click on mydomain.com -> New -> Organizational Unit (OU).
+    Verify client login:
+
+    Log in to Client-1 using the format mydomain.com\(your username) and your password.
+
+    Create a Domain Admin user on DC-1:
+
+        Log back in to DC-1.
+        Open the Start menu and navigate to Windows Administrative Tools > Active Directory Users and Computers.
+        Right-click on mydomain.com in the left pane and select New > Organizational Unit (OU).
 </p>
 <br />
 <p>
 <img src="https://github.com/user-attachments/assets/faf44d3e-095c-46aa-8990-f9d396e694e4" height="80%" width="80%" alt="create OU for domain"/>
 </p>
 <p>
-We can name the new OU _EMPLOYEES and we can create another one called _ADMINS. Then we'll create an admin user. Right click on _ADMINS -> New -> User. We'll name this admin user Jane Doe, with as username of jane_admin. Set whatever password that you wish. 
-
-Although Jane Doe is in a OU called _ADMINS, she technically is not yet a Domain admin since we have not given those privileges to her. So to do this, we click on _ADMINS and see that Jane Doe is there. Right click on Jane Doe -> Properties -> Member Of then type in Domain Admins in the box. Click on Check names, then OK and apply these settings.
+Create two OUs: "_EMPLOYEES" and "_ADMINS." Create an admin user named "Jane Doe" (username "jane_admin") within the "_ADMINS" OU and set a password. To grant domain admin privileges, right-click Jane Doe > Properties > Member Of, type "Domain Admins," click "Check Names," and apply the changes.
 </p>
 <br />
 <p>
 <img src="https://github.com/user-attachments/assets/09c0899a-a5c6-42b8-be70-83021c9dccc9" height="80%" width="80%" alt="set Jane as Domain admin"/>
 </p>
 <br />
-Now we'll need to change Client-1's DNS servers such that they point to the private IP address of DC-1
+Configure Client-1's network settings to use DC-1's private IP address as its DNS server.
 
 <p>
 <img src="https://github.com/user-attachments/assets/5bc33311-7037-4a64-ac19-6d11909e6ce2" height="80%" width="80%" alt="preconfigure vms before deploy AD"/>
@@ -91,7 +96,7 @@ Log back into Client-1 as Jane, be sure to do mydomain.com\ before the username.
 <img src="https://github.com/user-attachments/assets/af138c07-f43f-490c-bc8a-3199ba175601" height="80%" width="80%" alt="client joined domain"/>
 </p>
 <p>
-You will have to restart Client-1 for these changes to take effect. So do that and go back to DC-1. We'll verify if Client-1 has joined the domain. While still on Active Directory Users and Computers, click on mydomain.com and the Computers and you should see Client-1 there.
+Restart Client-1. On DC-1, verify Client-1 appears in Active Directory Users and Computers > mydomain.com > Computers.
 </p>
 <br />
 
